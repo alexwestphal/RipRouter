@@ -1,0 +1,102 @@
+
+                                   RIP Router                                   
+                                                                                
+--------------------------------------------------------------------------------
+
+Section 1) Building
+
+Usage: ./build
+
+Description: Compiles all nesscessary java source files (stored in ./src/) and
+    puts the resulting class files into the ./classes/ directory.
+
+
+
+--------------------------------------------------------------------------------
+
+Section 2) Configuration Files
+
+Naming Convention: If the configuration file is placed in the ./conf/ directory
+and the file is named "router-ID.cfg" (where ID is the Router ID) then the 
+config file can be found by the router daemon or client by just specifying the
+Router ID.
+
+Configuration Options: Options are specified one per line. Valid options are as
+follows:
+	admin-ports [<port0> <port1> ... <portN> ] ... Admin ports for the router
+	links [<inPort0>-<outPort0>-<metric0> ... ] .. Links for the router to use
+	router-id <id> ............................... Router ID for the router
+	router-name <name> ........................... Name for the router
+
+Validation: Configuration files can be validated with the ./routerd -validate
+	command. See section 3 for usage.
+
+
+
+--------------------------------------------------------------------------------
+
+Section 3) Router Daemon
+
+Usage: ./routerd [OPTIONS] [ROUTERID]
+    ROUTERID is the router-id of the router to start (not required if a config
+    file is specified as an option).
+    
+Options: 
+    -config <config-file> ... The configuration file to use in creating a router
+    -group <config-dir> ..... The directory of configuration files to use
+                              (starts multiple routers, one for each config file
+                              in the specified directory)
+    -help ................... Print the help information and exit
+	-loud ................... Run the router in loud (verbose) mode
+    -validate ............... Validate the configuration file(s)
+    
+Description: Create one or more routers using the specified config file(s).
+
+	
+    
+--------------------------------------------------------------------------------
+
+Section 4) Router Client
+
+Usage: ./router [OPTIONS] [ROUTERID]
+    ROUTERID is the router-id of the router to connect to (not required if a 
+    config file or port number is specified as an option).
+    
+Options:
+    -config <config-file> ... The configuration file to lookup the admin port
+    -help ................... Print the help information and exit
+    -port <port-number> ..... The port number to connect
+    
+Description: Connect to a router using the specified or lookedup port number and
+   allow the user to issue commands and recieve feedback.
+
+Commands:
+    set <field> <value> .... Set the specified field to the specified value
+                             (Valid fields are router-name, admin-port)
+    show <field>............ Return the parameter specified by <field>
+                             (Valid fields are router-id, router-name, 
+                             admin-port, input-ports, output-ports)
+    shutdown................ Shutdown the router
+    
+    
+
+--------------------------------------------------------------------------------
+
+Section 5) Javadocs
+
+Javadocs for the Java used in this project can be built with the command:
+	./docs/build
+
+The Javadocs can then be viewed with the command:
+	.docs/view
+
+
+
+--------------------------------------------------------------------------------
+
+Section 6) Contacts
+
+Alex Westphal : ajw224@uclive.ac.nz
+
+
+ 
