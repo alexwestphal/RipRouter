@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# Copyright (c) 2011, Alex Westphal. All rights reserved
+# Author: Alex Westphal
+# Version: 19-Aug-2011
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+file="classes/router/RouterClient.class"
+
+echo "Router Client"
+
+# Check if help option is set
+for i in "$@"
+do
+	if [ "-h" == $i -o "-help" == $i ]
+	then
+		echo "
+Usage: ./router [OPTIONS] [ROUTERID]
+    ROUTERID is the router-id of the router to connect to (not required if a 
+    config file or port number is specified as an option).
+    
+Options:
+    -config <config-file> ... The configuration file to lookup the admin port
+    -help ................... Print the help information and exit
+    -port <port-number> ..... The port number to connect
+		"
+		exit
+	fi
+done
+
+
+
+# Check for existence of required class file
+if [ ! -r $file ]
+then
+	printf "Error: Required file (%s) is missing.\nThe project may not have been built.\n" $file
+	exit
+fi
+
+#Execute the Router Client
+java -cp classes router.RouterClient $@

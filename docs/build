@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf files/*
+
+javadoc -package -linksource -d files/ router ../src/router/*.java ../src/router/logging/*.java ../src/router/rip/*.java -subpackages router.rip:router.logging

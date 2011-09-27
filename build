@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# Copyright (c) 2011, Alex Westphal. All rights reserved
+# Author: Alex Westphal
+# Version: 27-July-2011
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+sources=( "src/router/RouterClient.java" "src/router/RouterDaemon.java" "src/router/Router.java" )
+
+# Check for existence of required source files
+for file in ${sources[@]}
+do
+	if [ ! -r $file ]
+	then
+		printf "Build Error: Required source file (%s) missing.\n" $file
+		exit
+	fi
+done
+
+
+# Create the classes directory if it doesn't exist
+if [ ! -d classes ]
+then
+	mkdir classes
+fi
+
+# Remove existing class files
+rm -rf classes/*
+
+# Compile the java source files
+javac -d classes -sourcepath src ${sources[@]} $@
